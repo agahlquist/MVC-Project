@@ -5,6 +5,10 @@ var favicon = require('serve-favicon'); //handle favicon requests
 var cookieParser = require('cookie-parser'); //parse cookies from requests
 var bodyParser = require('body-parser'); //handles POST requests any information sent in an HTTP body
 var mongoose = require('mongoose'); //MongoDB library for Node
+var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
+var url = require('url');
+var csrf = require('csurf');
 
 var router = require('./router.js');
 
@@ -16,6 +20,18 @@ var db = mongoose.connect(dbURL, function(err) {
     throw err;
   }
 });
+
+var redisURL = {
+  hostname: 'localhost',
+  port: 6379
+};
+
+var redisPASS;
+
+if(process.env.REDISCLOUD_URL) {
+  redisURL = url.parse(process.env.REDISCOULD_URL);
+  redisPASS = redisURL.auth.split(":")[1];
+}
 
 var port = process.env.PORT || process.env.NODE_PORT || 3000;
 
@@ -29,9 +45,7 @@ var app = express();
 router(app);
 
 //tell app ot listen to specified port
-var server = app.listen(port, function(err) {
-  if(err) {
-    throw err;
-  }
-  console.log('listening on port ' + port);
+app.listen(port, function(err) {
+  if(err) throw err;
+  console.log('listening on port ' + port); 
 });

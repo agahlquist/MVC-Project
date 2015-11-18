@@ -9,9 +9,18 @@
   "author": "Andrew Ahlquist",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.14.1",
     "compression": "^1.6.0",
+    "connect-redis": "^3.0.1",
+    "cookie-parser": "^1.4.0",
+    "csurf": "^1.8.3",
     "express": "^4.13.3",
+    "express-session": "^1.12.1",
+    "helmet": "^0.14.0",
     "jade": "^1.11.0",
-    "path": "^0.12.7"
+    "mongoose": "^4.2.5",
+    "path": "^0.12.7",
+    "serve-favicon": "^2.3.0",
+    "underscore": "^1.8.3"
   }
 }

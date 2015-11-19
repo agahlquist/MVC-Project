@@ -1,15 +1,18 @@
 var requiresLogin = function(req, res, next) {
   if(!req.session.account) return res.redirect('/');
+  
   next();
 };
 
 var requiresLogout = function(req, res, next) {
-  if(req.session.account) return res.redirect('/maker');
+  if(req.session.account) return res.redirect('/charSelect');
+  
   next();
 };
 
 var requireSecure = function(req, res, next) {
   if(req.headers['x-forward-proto'] != 'https') return res.redirect('https://' + req.hostname + req.url);
+  
   next();
 };
 

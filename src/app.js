@@ -1,21 +1,19 @@
-var path = require('path'); //handle file system paths 
-var express = require('express'); //MVC framework for Node
-var compression = require('compression'); //gzips responses for smaller/faster transfer
-var favicon = require('serve-favicon'); //handle favicon requests
-var cookieParser = require('cookie-parser'); //parse cookies from requests
-var bodyParser = require('body-parser'); //handles POST requests any information sent in an HTTP body
-var mongoose = require('mongoose'); //MongoDB library for Node
+var path = require('path');
+var express = require('express');
+var compression = require('compression');
+var favicon = require('serve-favicon');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
 var url = require('url');
 var csrf = require('csurf');
 
-var router = require('./router.js');
-
-var dbURL = process.env.MONGOLAB_URI || 'mongodb://localhost/Project'; //local shit might be fucked
+var dbURL = process.env.MONGOLAB_URI || "mongodb://localhost/MVC-Project";
 
 var db = mongoose.connect(dbURL, function(err) {
-  if(err){
+  if(err) {
     console.log('Could not connect to database');
     throw err;
   }
@@ -33,19 +31,42 @@ if(process.env.REDISCLOUD_URL) {
   redisPASS = redisURL.auth.split(":")[1];
 }
 
+var router = require('./router.js');
+
 var port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 var app = express();
+app.use('/assets', express.static(path.resolve(__dirname + '../../client/')));
+app.use(compression());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({
+  key: 'sessionid',
+  store: new RedisStore({
+    host: redisURL.hostname,
+    port: redisURL.port,
+    pass: redisPASS
+  }),
+  secret: 'mister poopy butthole',
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true
+  }
+}));
+app.set('view engine', 'jade');
+app.set('views', __dirname + '/views');
+app.use(favicon(__dirname + '/../client/img/favicon.png'));
+app.disable('x-powered-by');
+app.use(cookieParser());
+app.use(csrf());
+app.use(function(err, req, res, next) {
+  if(err.code !== 'EBADCSRFTOKEN') return next(err);
+  return;
+});
 
-//*******
-//app.use/set stuff goes here
-//*******
-
-//pass app into the router to map routes
 router(app);
 
-//tell app ot listen to specified port
 app.listen(port, function(err) {
   if(err) throw err;
-  console.log('listening on port ' + port); 
+  console.log('istening on port ' + port);
 });

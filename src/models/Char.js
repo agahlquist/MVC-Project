@@ -14,41 +14,49 @@ var CharSchema = new mongoose.Schema({
     trim: true,
     set: setName
   },
+  
   strength: {
     type: Number,
-    required: true,
-    min: 0
+    min: 0,
+    required: true
   },
+  
   dexterity: {
     type: Number,
-    required: true,
-    min: 0
+    min: 0,
+    required: true
   },
+  
   constitution: {
     type: Number,
-    required: true,
-    min: 0
+    min: 0,
+    required: true
   },
+  
   intelligence: {
     type: Number,
-    required: true,
-    min: 0
+    min: 0,
+    required: true
   },
+  
   wisdom: {
     type: Number,
-    required: true,
-    min: 0
+    min: 0,
+    required: true
   },
+  
   charisma: {
     type: Number,
-    required: true,
-    min: 0
+    min: 0,
+    required: true
   },
+  
   owner: {
     type: mongoose.Schema.ObjectId,
     required: true,
     ref: 'Account'
   },
+  
   createdDate: {
     type: Date,
     default: Date.now
@@ -58,12 +66,18 @@ var CharSchema = new mongoose.Schema({
 CharSchema.methods.toAPI = function() {
   return {
     name: this.name,
-    
+    strength: this.strength,
+    dexterity: this.dexterity,
+    constitution: this.constitution,
+    intelligence: this.intelligence,
+    wisdom: this.wisdom,
+    charisma: this.charisma,
   };
 };
 
 CharSchema.statics.findByOwner = function(ownerID, callback) {
-  var search = { owner: mongoose.Types.OnjectId(ownerID) };
+  var search = { owner: mongoose.Types.ObjectId(ownerID) };
+  
   return CharModel.find(search).select('name strength dexterity constitution intelligence wisdom charisma').exec(callback);
 };
 

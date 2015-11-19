@@ -3,22 +3,22 @@ var models = require('../models');
 
 var Char = models.Char;
 
-var charPage = function(req, res) {
+var makerPage = function(req, res) {
   Char.CharModel.findByOwner(req.session.account._id, function(err, docs) {
     if(err) {
       console.log(err);
       return res.status(400).json({ error: 'An error occured' });
     }
     
-    res.render('app', { csrfToken: req.csrfToken(), chars: docs });
+    res.render('char', { csrfToken: req.csrfToken(), chars: docs });
   });
-};
+}
 
 var makeChar = function(req, res) {
   if(!req.body.name ||
      !req.body.strength || !req.body.dexterity || !req.body.constitution ||
      !req.body.intelligence || !req.body.wisdom || !req.body.charisma) {
-    res.status(400).json({ error: 'All fields are required!' });
+    return res.status(400).json({ error: 'RAWR! Name and age are requried' });
   }
   
   var charData = {
@@ -28,8 +28,9 @@ var makeChar = function(req, res) {
     constitution: req.body.constitution,
     intelligence: req.body.intelligence,
     wisdom: req.body.wisdom,
-    charisma: req.body.charisma
-  }
+    charisma: req.body.charisma,
+    owner: req.session.account._id
+  };
   
   var newChar = new Char.CharModel(charData);
   
@@ -39,9 +40,9 @@ var makeChar = function(req, res) {
       return res.status(400).json({ error: 'An error occured' });
     }
     
-    res.json({ redirect: '/char' });
+    res.json({ redirect: '/charSelect' });
   });
 };
 
-module.exports.charPage = charPage;
+module.exports.makerPage = makerPage;
 module.exports.make = makeChar;

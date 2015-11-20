@@ -19,6 +19,8 @@ $(document).ready(function() {
   }
 
   function sendAjax(action, data) {
+    console.log(action);
+    console.log(data);
     $.ajax({
       cache: false,
       type: "POST",
@@ -26,9 +28,11 @@ $(document).ready(function() {
       data: data,
       dataType: "json",
       success: function(result, status, xhr) {
+        console.log(result);
         window.location = result.redirect;
       },
       error: function(xhr, status, error) {
+        console.log('wat');
         var messageObj = JSON.parse(xhr.responseText);
         handleError(messageObj.error);
       }

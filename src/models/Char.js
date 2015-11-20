@@ -51,6 +51,11 @@ var CharSchema = new mongoose.Schema({
     required: true
   },
   
+  charID: {
+    type: String,
+    required: true
+  },
+  
   owner: {
     type: mongoose.Schema.ObjectId,
     required: true,
@@ -72,6 +77,7 @@ CharSchema.methods.toAPI = function() {
     intelligence: this.intelligence,
     wisdom: this.wisdom,
     charisma: this.charisma,
+    charID: this.charID
   };
 };
 
@@ -80,6 +86,15 @@ CharSchema.statics.findByOwner = function(ownerID, callback) {
   
   return CharModel.find(search).select('name strength dexterity constitution intelligence wisdom charisma').exec(callback);
 };
+
+CharSchema.statics.remove = function(ownerID, charID, callback) {
+  var search = {
+    owner: mongoose.Types.ObjectId(ownerID),
+    item: mongoose.Types.ObjectId(charID)
+  };
+  
+  return CharModel.remove(search).exec(callback);
+}
 
 CharModel = mongoose.model('Char', CharSchema);
 

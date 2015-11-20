@@ -1,11 +1,14 @@
 html, body {
   height: 100%;
   width: 100%;
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
   font-family: 'Press Start 2P'
+}
+
+* {
+  box-sizing: border-box; 
 }
 
 /*------
@@ -202,7 +205,6 @@ Other
 
 #chars {
   width: 90%;
-  min-width: 400px;
   margin: 0 auto;
   margin-top: 100px;
 }
@@ -213,6 +215,10 @@ Other
   padding: 10px;
   display: inline-block;
   margin-right: 4px;
+}
+
+.char:hover {
+  border: 3px solid black;
 }
 
 .charTitle {

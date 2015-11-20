@@ -14,17 +14,18 @@ block body
         h3.emptyChar You have no characters yet!
         p.emptyChar Click the + in the top left to create one!
     else
+      h1.charTitle Characters
       each val in chars
         div.char
           h3.charName Name: #{val.name}
           .col1-2.Left
-            h3.charStat Str: #{val.strength}
-            h3.charStat Dex: #{val.dexterity}
-            h3.charStat Con: #{val.constitution}
+            h3 Str: #{val.strength}
+            h3 Dex: #{val.dexterity}
+            h3 Con: #{val.constitution}
           .col1-2.Right
-            h3.charStat Int: #{val.intelligence}
-            h3.charStat Wis: #{val.wisdom}
-            h3.charStat Cha: #{val.charisma}
+            h3 Int: #{val.intelligence}
+            h3 Wis: #{val.wisdom}
+            h3 Cha: #{val.charisma}
           a#deleteChar(href="#") Delete
     
   section#makeChar

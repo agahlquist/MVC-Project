@@ -3,30 +3,55 @@ block append style
     link(rel="stylesheet", type="text/css", href="/assets/style.css")
 block body
   nav
-    a(href="/login")
-      img#logo(src="/assets/img/face.png", alt="face logo")
     .navlink
       a(href="/logout") Log out
-      
-  //section#makeDomo
-    form#domoForm(class="domoForm", name="domoForm", action="/maker", method="POST")
-      label(for="name") Name: 
-      input#domoName(type="text", name="name", placeholder="Domo Name")
-      label(for="age") Age: 
-      input#domoAge(type="text", name="age", placeholder="Domo Age")
-      input(type="hidden", name="_csrf", value="#{csrfToken}")
-      a#makeDomoSubmit(class="makeDomoSubmit", href="#") Make Domo
-      
-  section#domos
-  if !domos || domos.length == 0
-    div.domo
-      h3.emptyDomo No Domos yet
+    .navlink
+      a#addChar(href="#") +
+    
+  section#chars
+  if !chars || chars.length == 0
+    div.char
+      h3.emptyChar You have no characters yet!
+      p.emptyChar Click the + in the top right to create one!
   else
-    each val in domos
-      div.domo
-        img(class="domoFace", src="/assets/img/domoface.jpeg", alt="domo face")
-        h3.domoName Name: #{val.name}
-        h3.domoAge Age: #{val.age}
+    each val in chars
+      div.char
+        h3.charName Name: #{val.name}
+        h3.charStat Str: #{val.strength}
+        h3.charStat Dex: #{val.dexterity}
+        h3.charStat Con: #{val.constitution}
+        h3.charStat Int: #{val.intelligence}
+        h3.charStat Wis: #{val.wisdom}
+        h3.charStat Cha: #{val.charisma}
+    
+  section#makeChar
+    form#charForm(class="charForm", name="charForm", action="/charSelect", method="POST")
+      input#charName(type="text", name="name", placeholder="Char Name")
+      
+      div.col1-2.Left
+        .charStat
+          label(for="strength") Str
+          input#charStr(type="number", name="strength", value="")
+        .charStat
+          label(for="dexterity") Dex
+          input#charDex(type="number", name="dexterity",  value="")
+        .charStat
+          label(for="constitution") Con
+          input#charCon(type="number", name="constitution", value="")
+        
+      div.col1-2.Right
+        .charStat
+          label(for="intelligence") Int
+          input#charInt(type="number", name="intelligence", value="")
+        .charStat
+          label(for="wisdom") Wis
+          input#charWis(type="number", name="wisdom", value="")
+        .charStat
+          label(for="charisma") Cha
+          input#charCha(type="number", name="charisma", value="")
+      
+      a#cancelCharSubmit(class="cancelCharSubmit", href="#") Cancel
+      a#makeCharSubmit(class="makeCharSubmit", href="#") Save
     
 block scripts
         script(src="/assets/maker.js")

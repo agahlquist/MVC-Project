@@ -7,11 +7,17 @@ block body
     form#loginForm(class="mainForm", name="loginForm", action="/login", method="POST")
       label(for="username") Username: 
       input#user(type="text", name="username", placeholder="username")
+      
+      br
+      
       label(for="pass") Password: 
       input#pass(type="password", name="pass", placeholder="password")
+      
+      br
+      
       input(type="hidden", name="_csrf", value="#{csrfToken}")
       a#loginSubmit(class="formSubmit", href="#") Sign in
-      a(class="altFormSubmit", href="/signup") Don't have an account? Register
+      a(class="altFormSubmit", href="/signup") No account? Click here to register
       
 block scripts
     script(src="/assets/client.js")

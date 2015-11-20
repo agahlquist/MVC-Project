@@ -5,6 +5,16 @@ $(document).ready(function() {
   function handleError(message) {
     alert(message);
   }
+  
+  function resetFields() {
+    $("#charName").val("");
+    $("#charStr").val("");
+    $("#charDex").val("");
+    $("#charCon").val("");
+    $("#charInt").val("");
+    $("#charWis").val("");
+    $("#charCha").val("");
+  }
 
   function sendAjax(action, data) {
     $.ajax({
@@ -23,17 +33,35 @@ $(document).ready(function() {
     });        
   }
 
-  $("#makeDomoSubmit").on("click", function(e) {
+  $("#makeCharSubmit").on("click", function(e) {
     e.preventDefault();
 
-    if($("#domoName").val() == '' || $("#domoAge").val() == '') {
+    if($("#charName").val() == '' ||
+       $("#charStr").val() == '' || $("#charDex").val() == '' || $("#charCon").val() == '' ||
+       $("#charInt").val() == '' || $("#charWis").val() == '' || $("#charCha").val() == '') {
       handleError("All fields are required!");
       return false;
     }
+    console.log($("#charForm").serialize());
 
-    sendAjax($("#domoForm").attr("action"), $("#domoForm").serialize());
+    sendAjax($("#charForm").attr("action"), $("#charForm").serialize());
 
     return false;
   });
-
+  
+  $("#addChar").on("click", function(e) {
+    e.preventDefault();
+    
+    $("#makeChar").animate({
+      left: $(window).width()/2-200
+    });
+  });
+  
+  $("#cancelCharSubmit").on("click", function(e) {
+    e.preventDefault();
+    
+    $("#makeChar").animate({
+      left: '-400'
+    }, 400, resetFields);
+  });
 });

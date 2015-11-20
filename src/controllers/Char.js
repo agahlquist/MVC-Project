@@ -9,6 +9,7 @@ var makerPage = function(req, res) {
       console.log(err);
       return res.status(400).json({ error: 'An error occured' });
     }
+    console.log(docs);
     
     res.render('char', { csrfToken: req.csrfToken(), chars: docs });
   });
@@ -18,7 +19,7 @@ var makeChar = function(req, res) {
   if(!req.body.name ||
      !req.body.strength || !req.body.dexterity || !req.body.constitution ||
      !req.body.intelligence || !req.body.wisdom || !req.body.charisma) {
-    return res.status(400).json({ error: 'RAWR! Name and age are requried' });
+    return res.status(400).json({ error: 'All fields are requried' });
   }
   
   var charData = {

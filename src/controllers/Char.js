@@ -9,11 +9,10 @@ var makerPage = function(req, res) {
       console.log(err);
       return res.status(400).json({ error: 'An error occured' });
     }
-    console.log(docs);
     
     res.render('char', { csrfToken: req.csrfToken(), chars: docs });
   });
-}
+};
 
 var makeChar = function(req, res) {
   if(!req.body.name ||

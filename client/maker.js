@@ -7,6 +7,8 @@ $(document).ready(function() {
   }
   
   function resetFields() {
+    $("#makeChar").css('box-shadow', 'none');
+    
     $("#charName").val("");
     $("#charStr").val("");
     $("#charDex").val("");
@@ -54,6 +56,8 @@ $(document).ready(function() {
     
     $("#makeChar").animate({
       left: $(window).width()/2-200
+    }, 400, function() {
+      $("#makeChar").css('box-shadow', '0 0 100000px #000');
     });
   });
   

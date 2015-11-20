@@ -60,6 +60,8 @@ nav:nth-child(1) {
 
 #makeChar {
   position: absolute;
+  top: 45%;
+  left: -400;
 }
 
 .charForm {

@@ -27,8 +27,7 @@ block body
   section#makeChar
     form#charForm(class="charForm", name="charForm", action="/charSelect", method="POST")
       input#charName(type="text", name="name", placeholder="Char Name")
-      
-      div.col1-2.Left
+      .col1-2.Left
         .charStat
           label(for="strength") Str
           input#charStr(type="number", name="strength", value="")
@@ -38,8 +37,7 @@ block body
         .charStat
           label(for="constitution") Con
           input#charCon(type="number", name="constitution", value="")
-        
-      div.col1-2.Right
+      .col1-2.Right
         .charStat
           label(for="intelligence") Int
           input#charInt(type="number", name="intelligence", value="")
@@ -49,7 +47,6 @@ block body
         .charStat
           label(for="charisma") Cha
           input#charCha(type="number", name="charisma", value="")
-      
       a#cancelCharSubmit(class="cancelCharSubmit", href="#") Cancel
       a#makeCharSubmit(class="makeCharSubmit", href="#") Save
     

@@ -37,16 +37,20 @@ $(document).ready(function() {
 
   $("#makeCharSubmit").on("click", function(e) {
     e.preventDefault();
-
+    
     if($("#charName").val() == '' ||
        $("#charStr").val() == '' || $("#charDex").val() == '' || $("#charCon").val() == '' ||
        $("#charInt").val() == '' || $("#charWis").val() == '' || $("#charCha").val() == '') {
       handleError("All fields are required!");
       return false;
     }
-    console.log($("#charForm").serialize());
-
+    
     sendAjax($("#charForm").attr("action"), $("#charForm").serialize());
+    
+    //May be unecessary if ajax ever works.
+    $("#makeChar").animate({
+      left: '-400'
+    }, 400, resetFields);
 
     return false;
   });

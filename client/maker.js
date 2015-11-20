@@ -76,4 +76,9 @@ $(document).ready(function() {
       left: '-400'
     }, 400, resetFields);
   });
+  
+  $("#deleteChar").on("click", function(e) {
+    e.preventDefault();
+    console.log('figure out how to delete');
+  });
 });

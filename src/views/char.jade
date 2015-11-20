@@ -9,20 +9,23 @@ block body
       a#addChar(href="#") +
     
   section#chars
-  if !chars || chars.length == 0
-    div.char
-      h3.emptyChar You have no characters yet!
-      p.emptyChar Click the + in the top left to create one!
-  else
-    each val in chars
+    if !chars || chars.length == 0
       div.char
-        h3.charName Name: #{val.name}
-        h3.charStat Str: #{val.strength}
-        h3.charStat Dex: #{val.dexterity}
-        h3.charStat Con: #{val.constitution}
-        h3.charStat Int: #{val.intelligence}
-        h3.charStat Wis: #{val.wisdom}
-        h3.charStat Cha: #{val.charisma}
+        h3.emptyChar You have no characters yet!
+        p.emptyChar Click the + in the top left to create one!
+    else
+      each val in chars
+        div.char
+          h3.charName Name: #{val.name}
+          .col1-2.Left
+            h3.charStat Str: #{val.strength}
+            h3.charStat Dex: #{val.dexterity}
+            h3.charStat Con: #{val.constitution}
+          .col1-2.Right
+            h3.charStat Int: #{val.intelligence}
+            h3.charStat Wis: #{val.wisdom}
+            h3.charStat Cha: #{val.charisma}
+          a#deleteChar(href="#") Delete
     
   section#makeChar
     form#charForm(class="charForm", name="charForm", action="/charSelect", method="POST")

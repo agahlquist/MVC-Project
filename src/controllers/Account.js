@@ -3,11 +3,11 @@ var models = require('../models');
 var Account = models.Account;
 
 var loginPage = function(req, res) {
-  res.render('login', { csrfToken: req.csrfToken() });
+  res.render('login'/*, { csrfToken: req.csrfToken() }*/);
 };
 
 var signupPage = function(req, res) {
-  res.render('signup', { csrfToken: req.csrfToken() });
+  res.render('signup'/*, { csrfToken: req.csrfToken() }*/);
 };
 
 var logout = function(req, res) {
@@ -16,7 +16,7 @@ var logout = function(req, res) {
 };
 
 var login = function(req, res) {
-  if(!req.body.username || !req.body.pass) return res.status(400).json({ error: "RAWR! All fields required" });
+  if(!req.body.username || !req.body.pass) return res.status(400).json({ error: "All fields required" });
   
   Account.AccountModel.authenticate(req.body.username, req.body.pass, function(err, account) {
     if(err || !account) return res.status(401).json({ error: "Wrong username or password" });
